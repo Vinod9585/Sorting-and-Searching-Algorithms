@@ -93,46 +93,24 @@ console.log(sortedArray);
 // space complexity: O(1)
 
 
+*/
 // ----------------------------------------------------------------------------------------------------
 
-// -------------------------------------  SORT -----------------------------------------------
+// ----------------------------------------  MERGE SORT -----------------------------------------------
 
-function sortTwoArray(arr1, arr2) {
-  const m = arr1.length;
-  const n = arr2.length;
-  let i = 0;
-  let j = 0;
-  let result = "";
-
-  while (i < m && j < n) {
-    if (arr1[i] <= arr2[j]) {
-      result += arr1[i] + " ";
-      i++;
-    } else {
-      result += arr2[j] + " ";
-      j++;
-    }
-  }
-  while (i < m) {
-    result += arr1[i] + " ";
-    i++;
-  }
-  while (j < n) {
-    result += arr2[j] + " ";
-    j++;
+function mergeSort(arr, low, high) {
+  if (low === high) {
+    return arr;
   }
 
-  console.log(result);
+  const mid = Math.floor((low + high) / 2);
+
+  mergeSort(arr, low, mid);
+  mergeSort(arr, mid + 1, high);
+  merge(arr, low, mid, high);
 }
 
-sortTwoArray([2, 4, 54, 67], [2, 7, 23, 54, 55, 56, 67, 89]);
-
-
-*/
-
-//--------------------------------------------
-
-function sortArr(arr, low, mid, high) {
+function merge(arr, low, mid, high) {
   let i = low;
   let j = mid + 1;
   const result = [];
@@ -155,47 +133,15 @@ function sortArr(arr, low, mid, high) {
     j++;
   }
 
-  const finalArray = [
-    ...arr.slice(0, low),
-    ...result,
-    ...arr.slice(high + 1, arr.length),
-  ];
-
-  let temp = "";
-
-  for (let i = 0; i < finalArray.length; i++) {
-    temp += finalArray[i] + " ";
+  for (let k = 0; k < result.length; k++) {
+    arr[low + k] = result[k];
   }
-
-  return temp;
 }
 
-const unsortedArray = [
-  "vinod",
-  "shende",
-  12,
-  1,
-  45,
-  2,
-  3,
-  4,
-  10,
-  12,
-  1,
-  2,
-  3,
-  5,
-  6,
-  23,
-  4,
-  "how",
-  "are",
-  "you",
-];
+const unsortedArray = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];
+mergeSort(unsortedArray, 0, 10);
 
-console.log(sortArr(unsortedArray, 5, 9, 14));
+console.log(unsortedArray);
 
-//
-
-//
-//
+// time complexity: O(n log n)
+// space complexity: O(n)
